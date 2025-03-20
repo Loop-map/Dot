@@ -588,20 +588,23 @@ if __name__ == "__main__":
     result_df = pd.concat([dfs_dic[key] for key in sorted(dfs_dic.keys())], axis=1)
     print(result_df)
     result_df.to_csv('../data/create_data.csv', index=False)
-    # 获取所有以'y'开头的列名
-    y_cols = [col for col in result_df.columns if col.startswith('y')]
-
-    # 绘制图像
-    plt.figure(figsize=(10, 6))  # 设置图像大小
+   y_cols = [col for col in result_df.columns if 'time' not in col]
+    # 设置图像大小
+    plt.figure(figsize=(10, 6))
+    # 遍历 y 列，绘制每个 y 列对 time_0 的图形
     for col in y_cols:
-        plt.plot(result_df['x_0'], result_df[col], label=col)  # 绘制每个y列对x_0的图形
-
-    plt.xlabel('x')  # 设置x轴标签
-    plt.ylabel('y')  # 设置y轴标签
-    plt.title('Plot of y columns against x_0')  # 设置图像标题
-    plt.legend()  # 显示图例
-    plt.grid(True)  # 显示网格
-    plt.show()  # 显示图像
+        plt.plot(result_df['time_0'], result_df[col], label=col)
+    # 设置 x 轴和 y 轴标签
+    plt.xlabel('time_0')  # x 轴标签
+    plt.ylabel('Values')  # y 轴标签
+    # 设置图像标题
+    plt.title('Plot of Columns against time_0')
+    # 显示图例
+    plt.legend()
+    # 显示网格
+    plt.grid(True)
+    # 显示图像
+    plt.show()
 
 
 
